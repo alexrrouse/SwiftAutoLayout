@@ -58,7 +58,6 @@ extension UIView {
         return constraint;
     }
     
-    
     public func rzal_pinHeight(height: CGFloat) -> NSLayoutConstraint {
         var constraint:NSLayoutConstraint = NSLayoutConstraint(
             item: self,
@@ -68,6 +67,18 @@ extension UIView {
             attribute: NSLayoutAttribute.NotAnAttribute,
             multiplier: 1.0,
             constant: height)
+        return constraint;
+    }
+    
+    public func rzal_pinWidth(width: CGFloat) -> NSLayoutConstraint {
+        var constraint:NSLayoutConstraint = NSLayoutConstraint(
+            item: self,
+            attribute: NSLayoutAttribute.Width,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: nil,
+            attribute: NSLayoutAttribute.NotAnAttribute,
+            multiplier: 1.0,
+            constant: width)
         return constraint;
     }
     
@@ -83,7 +94,23 @@ extension UIView {
         return constraint;
     }
     
+    public func rzal_centerHorizontallyInContainerWithOffset(offset: CGFloat) -> NSLayoutConstraint {
+        var constraint:NSLayoutConstraint = NSLayoutConstraint(
+            item: self,
+            attribute: NSLayoutAttribute.CenterX,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: self.superview,
+            attribute: NSLayoutAttribute.CenterX,
+            multiplier: 1.0,
+            constant: offset)
+        return constraint;
+    }
+    
     public func rzal_fillContainer(insets: UIEdgeInsets) -> NSArray {
+        return self.rzal_fillContainer(insets, activate:false)
+    }
+    
+    public func rzal_fillContainer(insets: UIEdgeInsets, activate: Bool) -> NSArray {
         assert(self.superview != nil, "View requires a superview to add constraints");
         var constraints:NSArray = [
             self.rzal_pinLeadingSpaceToSuperview(insets.left),
@@ -91,6 +118,9 @@ extension UIView {
             self.rzal_pinTrailingSpaceToSuperview(insets.right),
             self.rzal_pinBottomSpaceToSuperview(insets.bottom)
         ]
+        for c:NSLayoutConstraint in constraints as [NSLayoutConstraint] {
+            c.active = true
+        }
         return constraints
     }
 }
