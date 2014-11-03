@@ -10,54 +10,116 @@ import UIKit
 
 extension UIView {
     
+// MARK: Leading Space
     public func rzal_pinLeadingSpaceToSuperview(padding: CGFloat) -> NSLayoutConstraint {
+        return self.rzal_pinLeadingSpaceToSuperview(padding, relation: NSLayoutRelation.Equal)
+    }
+    public func rzal_pinLeadingSpaceToSuperview(padding: CGFloat, relation: NSLayoutRelation) -> NSLayoutConstraint {
         assert(self.superview != nil, "View requires a superview to add constraints");
         var constraint:NSLayoutConstraint = NSLayoutConstraint(item: self,
             attribute: NSLayoutAttribute.Left,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: relation,
             toItem: self.superview,
             attribute: NSLayoutAttribute.Left,
             multiplier: 1.0,
             constant: padding)
         return constraint;
     }
-    
-    public func rzal_pinTopSpaceToSuperview(padding: CGFloat) -> NSLayoutConstraint {
-        assert(self.superview != nil, "View requires a superview to add constraints");
-        var constraint:NSLayoutConstraint = NSLayoutConstraint(item: self,
-            attribute: NSLayoutAttribute.Top,
+    public func rzal_pinLeadingSpaceToView(view: UIView, padding: CGFloat) -> NSLayoutConstraint {
+        var constraint:NSLayoutConstraint = NSLayoutConstraint(
+            item: self,
+            attribute: NSLayoutAttribute.Left,
             relatedBy: NSLayoutRelation.Equal,
-            toItem: self.superview,
-            attribute: NSLayoutAttribute.Top,
+            toItem: view,
+            attribute: NSLayoutAttribute.Right,
             multiplier: 1.0,
             constant: padding)
         return constraint;
     }
     
+// MARK: Trailing Space
     public func rzal_pinTrailingSpaceToSuperview(padding: CGFloat) -> NSLayoutConstraint {
+        return self.rzal_pinTrailingSpaceToSuperview(padding, relation: NSLayoutRelation.Equal)
+    }
+    public func rzal_pinTrailingSpaceToSuperview(padding: CGFloat, relation: NSLayoutRelation) -> NSLayoutConstraint {
         assert(self.superview != nil, "View requires a superview to add constraints");
         var constraint:NSLayoutConstraint = NSLayoutConstraint(item: self,
             attribute: NSLayoutAttribute.Right,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: relation,
             toItem: self.superview,
             attribute: NSLayoutAttribute.Right,
             multiplier: 1.0,
             constant: -padding)
         return constraint;
     }
+    public func rzal_pinTrailingSpaceToView(view: UIView, padding: CGFloat) -> NSLayoutConstraint {
+        var constraint:NSLayoutConstraint = NSLayoutConstraint(
+            item: self,
+            attribute: NSLayoutAttribute.Right,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Left,
+            multiplier: 1.0,
+            constant: padding)
+        return constraint;
+    }
     
+// MARK: Top Space
+    public func rzal_pinTopSpaceToSuperview(padding: CGFloat) -> NSLayoutConstraint {
+        return self.rzal_pinTopSpaceToSuperview(padding, relation: NSLayoutRelation.Equal)
+    }
+    public func rzal_pinTopSpaceToSuperview(padding: CGFloat, relation: NSLayoutRelation) -> NSLayoutConstraint {
+        assert(self.superview != nil, "View requires a superview to add constraints");
+        var constraint:NSLayoutConstraint = NSLayoutConstraint(item: self,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: relation,
+            toItem: self.superview,
+            attribute: NSLayoutAttribute.Top,
+            multiplier: 1.0,
+            constant: padding)
+        return constraint;
+    }
+    public func rzal_pinTopSpaceToView(view: UIView, space: CGFloat) -> NSLayoutConstraint {
+        var constraint:NSLayoutConstraint = NSLayoutConstraint(
+            item: self,
+            attribute: NSLayoutAttribute.Top,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Bottom,
+            multiplier: 1.0,
+            constant: space)
+        return constraint;
+    }
+
+// MARK: Bottom Space
     public func rzal_pinBottomSpaceToSuperview(padding: CGFloat) -> NSLayoutConstraint {
+        return self.rzal_pinBottomSpaceToSuperview(padding, relation: NSLayoutRelation.Equal)
+    }
+    public func rzal_pinBottomSpaceToSuperview(padding: CGFloat, relation: NSLayoutRelation) -> NSLayoutConstraint {
+
         assert(self.superview != nil, "View requires a superview to add constraints");
         var constraint:NSLayoutConstraint = NSLayoutConstraint(item: self,
             attribute: NSLayoutAttribute.Bottom,
-            relatedBy: NSLayoutRelation.Equal,
+            relatedBy: relation,
             toItem: self.superview,
             attribute: NSLayoutAttribute.Bottom,
             multiplier: 1.0,
             constant: -padding)
         return constraint;
     }
+    public func rzal_pinBottomSpaceToView(view: UIView, padding: CGFloat) -> NSLayoutConstraint {
+        var constraint:NSLayoutConstraint = NSLayoutConstraint(
+            item: self,
+            attribute: NSLayoutAttribute.Bottom,
+            relatedBy: NSLayoutRelation.Equal,
+            toItem: view,
+            attribute: NSLayoutAttribute.Top,
+            multiplier: 1.0,
+            constant: padding)
+        return constraint;
+    }
     
+// MARK: Size Constraints
     public func rzal_pinHeight(height: CGFloat) -> NSLayoutConstraint {
         var constraint:NSLayoutConstraint = NSLayoutConstraint(
             item: self,
@@ -105,6 +167,7 @@ extension UIView {
             constant: offset)
         return constraint;
     }
+    
     
     public func rzal_fillContainer(insets: UIEdgeInsets) -> NSArray {
         return self.rzal_fillContainer(insets, activate:false)
